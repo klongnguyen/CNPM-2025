@@ -27,6 +27,6 @@ Dự án xây dựng một nền tảng thương mại điện tử chuyên cung
 cd FashionStore  
   
 dotnet run
-**Bước 1:** Clone dự án từ GitHub về máy tính
+
 ```bash
 git clone <đường-link-repository-của-bạn>
