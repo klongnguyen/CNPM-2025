@@ -1,0 +1,70 @@
+@model FashionStore.Models.Entities.Customer
+@{
+    ViewData["Title"] = "Hồ Sơ Của Tôi";
+    var orders = ViewBag.Orders as IEnumerable<FashionStore.Models.Entities.Sale>;
+}
+
+<section class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+    <div class="flex justify-between items-end mb-12">
+        <div>
+            <h1 class="text-4xl font-black tracking-tighter uppercase mb-2">Hồ Sơ</h1>
+            <p class="text-neutral-500">Xin chào, @Model.FullName</p>
+        </div>
+        <a href="/Account/Logout" class="text-sm font-bold text-red-500 uppercase tracking-widest hover:text-red-700">Đăng Xuất</a>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <!-- Account Info -->
+        <div class="col-span-1">
+            <div class="bg-neutral-50 p-8">
+                <h2 class="text-lg font-bold uppercase tracking-wide mb-6">Thông Tin</h2>
+                <div class="space-y-4 text-sm">
+                    <div>
+                        <p class="text-neutral-500 uppercase text-xs font-bold tracking-widest mb-1">Họ và Tên</p>
+                        <p class="font-medium">@Model.FullName</p>
+                    </div>
+                    <div>
+                        <p class="text-neutral-500 uppercase text-xs font-bold tracking-widest mb-1">Email</p>
+                        <p class="font-medium">@Model.Email</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order History -->
+        <div class="col-span-1 lg:col-span-2">
+            <h2 class="text-lg font-bold uppercase tracking-wide mb-6">Lịch Sử Đơn Hàng</h2>
+            @if (orders != null && orders.Any())
+            {
+                <div class="border border-neutral-200">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-neutral-50 border-b border-neutral-200">
+                            <tr>
+                                <th class="py-4 px-6 font-bold uppercase tracking-widest text-xs text-neutral-500">Mã ĐH</th>
+                                <th class="py-4 px-6 font-bold uppercase tracking-widest text-xs text-neutral-500">Ngày Đặt</th>
+                                <th class="py-4 px-6 font-bold uppercase tracking-widest text-xs text-neutral-500 text-right">Tổng Tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-neutral-100">
+                            @foreach (var order in orders)
+                            {
+                                <tr>
+                                    <td class="py-4 px-6 font-semibold">#ORD-@order.Id</td>
+                                    <td class="py-4 px-6 text-neutral-500">@order.SaleDate.ToString("dd/MM/yyyy")</td>
+                                    <td class="py-4 px-6 font-bold text-right">$@order.TotalAmount.ToString("0.00")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="border border-neutral-200 p-8 text-center">
+                    <p class="text-neutral-500">Bạn chưa có đơn hàng nào.</p>
+                    <a href="/Products" class="inline-block mt-4 text-sm font-bold uppercase tracking-widest hover:text-neutral-500">Bắt đầu mua sắm</a>
+                </div>
+            }
+        </div>
+    </div>
+</section>

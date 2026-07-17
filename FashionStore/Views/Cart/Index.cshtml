@@ -1,0 +1,86 @@
+@model IEnumerable<FashionStore.Models.CartItem>
+@{
+    ViewData["Title"] = "Giỏ Hàng";
+}
+<section class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+    <h1 class="text-4xl font-black tracking-tighter uppercase mb-12">Giỏ Hàng</h1>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="text-center py-24">
+            <p class="text-neutral-500 mb-6">Giỏ hàng của bạn đang trống.</p>
+            <a href="/Products" class="inline-block bg-neutral-900 text-white text-sm font-bold tracking-widest uppercase px-8 py-4 hover:bg-neutral-800 transition-all">Tiếp Tục Mua Sắm</a>
+        </div>
+    }
+    else
+    {
+        <div style="display: flex; flex-wrap: wrap; gap: 3rem;">
+            <div style="flex: 1 1 60%; min-width: 300px;">
+                <table class="w-full text-left" style="table-layout: fixed;">
+                    <thead class="border-b border-neutral-200">
+                        <tr>
+                            <th class="py-4 text-xs font-bold tracking-widest uppercase text-neutral-500" style="width: 50%;">Sản Phẩm</th>
+                            <th class="py-4 text-xs font-bold tracking-widest uppercase text-neutral-500 text-center" style="width: 15%;">Số Lượng</th>
+                            <th class="py-4 text-xs font-bold tracking-widest uppercase text-neutral-500 text-right" style="width: 20%;">Tổng</th>
+                            <th style="width: 15%;"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-neutral-100">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="py-6">
+                                    <div class="flex gap-6 items-center">
+                                        <img src="@item.ImageUrl" class="w-20 h-24 object-cover grayscale" style="min-width: 5rem;" />
+                                        <div style="overflow-wrap: break-word; min-width: 0;">
+                                            <h3 class="font-bold uppercase tracking-wide">@item.ProductName</h3>
+                                            <p class="text-sm text-neutral-500 mt-1">Size: @item.Size | Color: @item.Color</p>
+                                            <p class="text-sm text-neutral-500 mt-1">$@item.Price.ToString("0.00")</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-6 font-bold text-center">@item.Quantity</td>
+                                <td class="py-6 font-bold text-right">$@item.Total.ToString("0.00")</td>
+                                <td class="py-6 text-right">
+                                    <a href="/Cart/RemoveFromCart?productId=@item.ProductId&size=@item.Size&color=@item.Color" class="text-xs font-bold text-red-500 hover:text-red-700 uppercase tracking-widest">Xóa</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="bg-neutral-50 p-8 h-fit" style="flex: 1 1 30%; min-width: 300px;">
+                <h2 class="text-lg font-bold uppercase tracking-wide mb-6">Tóm Tắt Đơn Hàng</h2>
+                <div class="flex justify-between items-center mb-4 text-sm">
+                    <span class="text-neutral-500">Tạm Tính</span>
+                    <span class="font-bold">$@Model.Sum(x => x.Total).ToString("0.00")</span>
+                </div>
+                <div class="flex justify-between items-center mb-6 text-sm">
+                    <span class="text-neutral-500">Vận Chuyển</span>
+                    <span class="font-bold">Miễn Phí</span>
+                </div>
+                <div class="border-t border-neutral-200 pt-6 flex justify-between items-center mb-8">
+                    <span class="font-bold uppercase tracking-wide">Tổng Cộng</span>
+                    <span class="text-2xl font-black">$@Model.Sum(x => x.Total).ToString("0.00")</span>
+                </div>
+                
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <form method="post" action="/Cart/Checkout">
+                        <button type="submit" class="w-full bg-neutral-900 text-white font-bold tracking-widest uppercase py-5 hover:bg-neutral-800 transition-colors">
+                            Thanh Toán
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <a href="/Account/Login" class="block text-center w-full bg-neutral-900 text-white font-bold tracking-widest uppercase py-5 hover:bg-neutral-800 transition-colors">
+                        Đăng Nhập Để Thanh Toán
+                    </a>
+                }
+            </div>
+        </div>
+    }
+</section>

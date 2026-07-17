@@ -1,0 +1,38 @@
+@{ 
+    ViewData["Title"] = "Đăng Nhập";
+}
+<section class="max-w-md mx-auto px-6 py-24">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-black tracking-tighter uppercase mb-4">Đăng Nhập</h1>
+        <p class="text-neutral-500 text-sm">Chào mừng trở lại. Vui lòng nhập thông tin của bạn.</p>
+    </div>
+
+    @if (ViewData["Error"] != null)
+    {
+        <div class="bg-red-50 text-red-500 p-4 mb-6 text-sm font-bold">
+            @ViewData["Error"]
+        </div>
+    }
+
+    <form method="post" action="/Account/Login" class="space-y-6">
+        <div>
+            <label class="block text-xs font-bold tracking-widest uppercase mb-2">Email</label>
+            <input type="email" name="email" class="w-full border-b border-neutral-300 py-3 bg-transparent focus:outline-none focus:border-neutral-900 transition-colors" placeholder="Email của bạn" required />
+        </div>
+        <div>
+            <div class="flex justify-between items-end mb-2">
+                <label class="block text-xs font-bold tracking-widest uppercase">Mật Khẩu</label>
+                <a href="#" class="text-xs font-bold text-neutral-400 underline hover:text-neutral-900">Quên mật khẩu?</a>
+            </div>
+            <input type="password" name="password" class="w-full border-b border-neutral-300 py-3 bg-transparent focus:outline-none focus:border-neutral-900 transition-colors" placeholder="Mật khẩu của bạn" required />
+        </div>
+        
+        <button type="submit" class="w-full bg-neutral-900 text-white font-bold tracking-widest uppercase py-4 mt-8 hover:bg-neutral-800 transition-colors">
+            Đăng Nhập
+        </button>
+    </form>
+    
+    <div class="mt-12 text-center text-sm font-medium border-t border-neutral-200 pt-8">
+        Chưa có tài khoản? <a href="/Account/Register" class="font-bold underline uppercase tracking-wider hover:text-neutral-500">Đăng Ký Ngay</a>
+    </div>
+</section>

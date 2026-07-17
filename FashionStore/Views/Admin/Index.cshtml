@@ -1,0 +1,47 @@
+@{ 
+    ViewData["Title"] = "Tổng Quan";
+    Layout = "_AdminLayout";
+    
+    var totalSales = ViewData["TotalSales"] as decimal? ?? 0;
+    var orderCount = ViewData["OrderCount"] as int? ?? 0;
+    var customerCount = ViewData["CustomerCount"] as int? ?? 0;
+}
+
+<!-- Stat Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white p-6 border border-neutral-200">
+        <h3 class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-2">Tổng Doanh Thu</h3>
+        <p class="text-3xl font-black">$@totalSales.ToString("0.00")</p>
+    </div>
+    <div class="bg-white p-6 border border-neutral-200">
+        <h3 class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-2">Tổng Đơn Hàng</h3>
+        <p class="text-3xl font-black">@orderCount</p>
+    </div>
+    <div class="bg-white p-6 border border-neutral-200">
+        <h3 class="text-xs font-bold tracking-widest uppercase text-neutral-500 mb-2">Khách Hàng</h3>
+        <p class="text-3xl font-black">@customerCount</p>
+    </div>
+</div>
+
+<!-- Recent Orders -->
+<div class="bg-white border border-neutral-200">
+    <div class="p-6 border-b border-neutral-200 flex justify-between items-center">
+        <h2 class="text-lg font-bold uppercase tracking-wide">Đơn Hàng Gần Đây</h2>
+        <a href="/Admin/Orders" class="text-xs font-bold tracking-widest text-neutral-500 hover:text-neutral-900 uppercase">Xem Tất Cả</a>
+    </div>
+    <table class="w-full text-left text-sm">
+        <thead class="bg-neutral-50 text-xs uppercase tracking-widest text-neutral-500">
+            <tr>
+                <th class="px-6 py-4 font-bold">Mã ĐH</th>
+                <th class="px-6 py-4 font-bold">Khách Hàng</th>
+                <th class="px-6 py-4 font-bold">Tổng Tiền</th>
+                <th class="px-6 py-4 font-bold">Trạng Thái</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-neutral-100">
+            <tr>
+                <td colspan="4" class="px-6 py-4 text-center text-neutral-500">Vui lòng xem chi tiết tại mục Đơn hàng.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

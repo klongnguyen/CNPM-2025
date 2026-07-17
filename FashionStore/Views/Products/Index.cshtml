@@ -1,0 +1,59 @@
+@model IEnumerable<FashionStore.Models.Entities.Product>
+@{ 
+    ViewData["Title"] = "Sản Phẩm";
+}
+<section class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-neutral-200 pb-8">
+        <div>
+            <h1 class="text-5xl font-black tracking-tighter uppercase">Bộ Sưu Tập</h1>
+            <p class="text-neutral-500 mt-4 max-w-md">Khám phá các thiết kế nguyên bản, tập trung vào chất liệu và form dáng chuẩn mực.</p>
+        </div>
+        <div class="mt-8 md:mt-0 flex gap-4">
+            <select class="border border-neutral-300 py-2 px-4 text-sm font-semibold uppercase tracking-wide bg-white focus:outline-none focus:border-neutral-900 cursor-pointer">
+                <option>Mới Nhất</option>
+                <option>Giá: Thấp - Cao</option>
+                <option>Giá: Cao - Thấp</option>
+            </select>
+            <select class="border border-neutral-300 py-2 px-4 text-sm font-semibold uppercase tracking-wide bg-white focus:outline-none focus:border-neutral-900 cursor-pointer">
+                <option>Loại Sản Phẩm</option>
+                <option>Áo Khoác</option>
+                <option>Quần Tây</option>
+                <option>Áo Thun</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+        @if(Model != null && Model.Any())
+        {
+            foreach(var item in Model)
+            {
+                <a href="/Products/Details/@item.Id" class="group block">
+                    <div class="aspect-[3/4] bg-neutral-100 overflow-hidden mb-4 relative">
+                        <img src="@item.ImageUrl" alt="@item.Name" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 grayscale" />
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold uppercase tracking-wide text-neutral-900 group-hover:text-neutral-600 transition-colors">@item.Name</h3>
+                        <p class="text-sm text-neutral-500 mt-1">$@item.CatalogPrice.ToString("0.00")</p>
+                    </div>
+                </a>
+            }
+        }
+        else
+        {
+            <div class="col-span-4 text-center py-20">
+                <p class="text-neutral-500">Không tìm thấy sản phẩm nào.</p>
+            </div>
+        }
+    </div>
+
+    <!-- Pagination -->
+    <div class="mt-24 border-t border-neutral-200 pt-8 flex justify-center space-x-2">
+        <a href="#" class="w-10 h-10 flex items-center justify-center border border-neutral-900 bg-neutral-900 text-white font-bold text-sm">1</a>
+        <a href="#" class="w-10 h-10 flex items-center justify-center border border-neutral-200 text-neutral-600 hover:border-neutral-900 hover:text-neutral-900 transition-colors font-bold text-sm">2</a>
+        <a href="#" class="w-10 h-10 flex items-center justify-center border border-neutral-200 text-neutral-600 hover:border-neutral-900 hover:text-neutral-900 transition-colors font-bold text-sm">3</a>
+        <span class="w-10 h-10 flex items-center justify-center text-neutral-400">...</span>
+        <a href="#" class="w-10 h-10 flex items-center justify-center border border-neutral-200 text-neutral-600 hover:border-neutral-900 hover:text-neutral-900 transition-colors font-bold text-sm">Next</a>
+    </div>
+</section>

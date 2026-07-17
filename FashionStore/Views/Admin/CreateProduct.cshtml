@@ -1,0 +1,58 @@
+@model FashionStore.Models.Entities.Product
+@{
+    ViewData["Title"] = "Thêm Sản Phẩm Mới";
+    Layout = "_AdminLayout";
+}
+
+<div class="mb-8">
+    <h1 class="text-2xl font-bold uppercase tracking-wide">Thêm Sản Phẩm Mới</h1>
+</div>
+
+<div class="bg-white border border-neutral-200 p-6">
+    <form method="post" action="/Admin/CreateProduct" class="space-y-6 max-w-2xl">
+        <div>
+            <label class="block text-xs font-bold tracking-widest uppercase mb-2">Tên Sản Phẩm</label>
+            <input type="text" name="Name" class="w-full border border-neutral-300 py-3 px-4 focus:outline-none focus:border-neutral-900" required />
+        </div>
+        <div>
+            <label class="block text-xs font-bold tracking-widest uppercase mb-2">URL Hình Ảnh</label>
+            <input type="url" name="ImageUrl" class="w-full border border-neutral-300 py-3 px-4 focus:outline-none focus:border-neutral-900" required />
+        </div>
+        <div class="grid grid-cols-2 gap-6">
+            <div>
+                <label class="block text-xs font-bold tracking-widest uppercase mb-2">Giá Cửa Hàng (Catalog Price)</label>
+                <input type="number" step="0.01" name="CatalogPrice" class="w-full border border-neutral-300 py-3 px-4 focus:outline-none focus:border-neutral-900" required />
+            </div>
+            <div>
+                <label class="block text-xs font-bold tracking-widest uppercase mb-2">Giá Bán (Sale Price)</label>
+                <input type="number" step="0.01" name="SalePrice" class="w-full border border-neutral-300 py-3 px-4 focus:outline-none focus:border-neutral-900" required />
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-6">
+            <div>
+                <label class="block text-xs font-bold tracking-widest uppercase mb-2">Thương Hiệu</label>
+                <input type="text" name="Brand" class="w-full border border-neutral-300 py-3 px-4 focus:outline-none focus:border-neutral-900" required />
+            </div>
+            <div>
+                <label class="block text-xs font-bold tracking-widest uppercase mb-2">Danh Mục</label>
+                <input type="text" name="Category" class="w-full border border-neutral-300 py-3 px-4 focus:outline-none focus:border-neutral-900" required />
+            </div>
+        </div>
+        <div>
+            <label class="block text-xs font-bold tracking-widest uppercase mb-2">Mô Tả</label>
+            <textarea name="Description" rows="4" class="w-full border border-neutral-300 py-3 px-4 focus:outline-none focus:border-neutral-900" required></textarea>
+        </div>
+        <div>
+            <label class="block text-xs font-bold tracking-widest uppercase mb-2">Chất Liệu (Material)</label>
+            <input type="text" name="Material" class="w-full border border-neutral-300 py-3 px-4 focus:outline-none focus:border-neutral-900" />
+        </div>
+        <div class="pt-4 flex gap-4">
+            <button type="submit" class="bg-neutral-900 text-white text-sm font-bold uppercase tracking-widest px-8 py-4 hover:bg-neutral-800 transition-colors">
+                Lưu Sản Phẩm
+            </button>
+            <a href="/Admin/Products" class="inline-block bg-neutral-200 text-neutral-800 text-sm font-bold uppercase tracking-widest px-8 py-4 hover:bg-neutral-300 transition-colors">
+                Hủy
+            </a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,114 @@
+@model FashionStore.Models.Entities.Product
+@{ 
+    ViewData["Title"] = Model.Name;
+}
+<section class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <!-- Images -->
+        <div class="grid grid-cols-2 gap-4">
+            <div class="col-span-2 aspect-[3/4] bg-neutral-100 relative">
+                <img src="@Model.ImageUrl" alt="@Model.Name" class="absolute inset-0 w-full h-full object-cover object-center grayscale" />
+            </div>
+            <div class="aspect-[3/4] bg-neutral-100 relative cursor-pointer">
+                <img src="@Model.ImageUrl" alt="@Model.Name" class="absolute inset-0 w-full h-full object-cover object-center grayscale opacity-80 hover:opacity-100 transition-opacity" />
+            </div>
+            <div class="aspect-[3/4] bg-neutral-100 relative cursor-pointer">
+                <img src="@Model.ImageUrl" alt="@Model.Name" class="absolute inset-0 w-full h-full object-cover object-center grayscale opacity-80 hover:opacity-100 transition-opacity" />
+            </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="lg:pl-8 flex flex-col justify-start">
+            <div class="mb-8">
+                <a href="/Products" class="text-xs font-bold tracking-widest uppercase text-neutral-400 hover:text-neutral-900 transition-colors">@Model.Category</a>
+                <h1 class="text-4xl md:text-5xl font-black tracking-tighter uppercase mt-2">@Model.Name</h1>
+                <p class="text-2xl font-bold mt-4">$@Model.CatalogPrice.ToString("0.00")</p>
+            </div>
+
+            <p class="text-neutral-600 leading-relaxed mb-10">
+                @Model.Description
+            </p>
+
+            <form method="post" action="/Cart/AddToCart">
+                <input type="hidden" name="productId" value="@Model.Id" />
+                <input type="hidden" name="quantity" value="1" />
+                <!-- Color Selection -->
+                <div class="mb-8">
+                    <h3 class="text-xs font-bold tracking-widest uppercase mb-3">Màu Sắc</h3>
+                    <div class="flex gap-3">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="color" value="black" class="peer sr-only" checked />
+                            <div class="w-10 h-10 bg-black border-2 border-transparent peer-checked:border-neutral-400 peer-checked:ring-2 peer-checked:ring-offset-2 peer-checked:ring-neutral-900 transition-all rounded-full"></div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="color" value="grey" class="peer sr-only" />
+                            <div class="w-10 h-10 bg-neutral-500 border-2 border-transparent peer-checked:border-neutral-400 peer-checked:ring-2 peer-checked:ring-offset-2 peer-checked:ring-neutral-900 transition-all rounded-full"></div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="color" value="beige" class="peer sr-only" />
+                            <div class="w-10 h-10 bg-[#D5CDB5] border-2 border-transparent peer-checked:border-neutral-400 peer-checked:ring-2 peer-checked:ring-offset-2 peer-checked:ring-neutral-900 transition-all rounded-full"></div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Size Selection -->
+                <div class="mb-10">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-xs font-bold tracking-widest uppercase">Kích Thước</h3>
+                        <a href="#" class="text-xs font-bold text-neutral-400 underline hover:text-neutral-900">Hướng Dẫn Chọn Size</a>
+                    </div>
+                    <div class="grid grid-cols-4 gap-3">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="size" value="S" class="peer sr-only" />
+                            <div class="border border-neutral-300 py-3 text-center font-bold text-sm uppercase peer-checked:bg-neutral-900 peer-checked:text-white peer-checked:border-neutral-900 hover:border-neutral-900 transition-colors">S</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="size" value="M" class="peer sr-only" checked />
+                            <div class="border border-neutral-300 py-3 text-center font-bold text-sm uppercase peer-checked:bg-neutral-900 peer-checked:text-white peer-checked:border-neutral-900 hover:border-neutral-900 transition-colors">M</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="size" value="L" class="peer sr-only" />
+                            <div class="border border-neutral-300 py-3 text-center font-bold text-sm uppercase peer-checked:bg-neutral-900 peer-checked:text-white peer-checked:border-neutral-900 hover:border-neutral-900 transition-colors">L</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="size" value="XL" class="peer sr-only" />
+                            <div class="border border-neutral-200 py-3 text-center font-bold text-sm uppercase text-neutral-400 bg-neutral-50 cursor-not-allowed">XL</div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Add to Cart -->
+                <button type="submit" class="w-full bg-neutral-900 text-white font-bold tracking-widest uppercase py-5 hover:bg-neutral-800 transition-colors">
+                    Thêm Vào Giỏ Hàng
+                </button>
+            </form>
+
+            <div class="mt-12 border-t border-neutral-200 pt-8">
+                <details class="group py-4 border-b border-neutral-200 cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold uppercase tracking-wide text-sm list-none">
+                        Chất liệu & Bảo quản
+                        <span class="transition group-open:rotate-180">
+                            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                        </span>
+                    </summary>
+                    <div class="text-neutral-600 text-sm mt-4 leading-relaxed">
+                        Chất liệu: 60% Wool, 40% Polyester.<br/>
+                        Giặt khô chuyên nghiệp. Không sử dụng thuốc tẩy. Ủi ở nhiệt độ thấp.
+                    </div>
+                </details>
+                <details class="group py-4 border-b border-neutral-200 cursor-pointer">
+                    <summary class="flex justify-between items-center font-bold uppercase tracking-wide text-sm list-none">
+                        Giao hàng & Đổi trả
+                        <span class="transition group-open:rotate-180">
+                            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                        </span>
+                    </summary>
+                    <div class="text-neutral-600 text-sm mt-4 leading-relaxed">
+                        Miễn phí giao hàng cho đơn hàng trên 2.000.000 ₫.<br/>
+                        Hỗ trợ đổi trả trong vòng 14 ngày đối với sản phẩm còn nguyên tag.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </div>
+</section>

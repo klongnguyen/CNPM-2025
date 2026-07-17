@@ -1,0 +1,46 @@
+@model IEnumerable<FashionStore.Models.Entities.Sale>
+@{ 
+    ViewData["Title"] = "Quản Lý Đơn Hàng";
+    Layout = "_AdminLayout";
+}
+
+<div class="bg-white border border-neutral-200">
+    <div class="p-4 border-b border-neutral-200 flex gap-4">
+        <select class="border border-neutral-300 py-2 px-4 text-sm focus:outline-none">
+            <option>Tất cả trạng thái</option>
+            <option>Chờ xử lý</option>
+            <option>Đang giao</option>
+            <option>Đã giao</option>
+        </select>
+    </div>
+    <table class="w-full text-left text-sm">
+        <thead class="bg-neutral-50 text-xs uppercase tracking-widest text-neutral-500">
+            <tr>
+                <th class="px-6 py-4 font-bold">Mã ĐH</th>
+                <th class="px-6 py-4 font-bold">Ngày Đặt</th>
+                <th class="px-6 py-4 font-bold">Khách Hàng</th>
+                <th class="px-6 py-4 font-bold">Tổng Tiền</th>
+                <th class="px-6 py-4 font-bold">Trạng Thái</th>
+                <th class="px-6 py-4 font-bold text-right">Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-neutral-100">
+            @if(Model != null)
+            {
+                foreach(var item in Model.Take(100)) // limit for display
+                {
+                    <tr>
+                        <td class="px-6 py-4 font-semibold">#ORD-@item.Id</td>
+                        <td class="px-6 py-4 text-neutral-500">@item.SaleDate.ToString("dd/MM/yyyy")</td>
+                        <td class="px-6 py-4">@(item.Customer != null ? item.Customer.FullName : "Guest")</td>
+                        <td class="px-6 py-4 font-bold">$@item.TotalAmount.ToString("0.00")</td>
+                        <td class="px-6 py-4"><span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 uppercase tracking-wider">Hoàn Thành</span></td>
+                        <td class="px-6 py-4 text-right">
+                            <button class="text-neutral-500 hover:text-neutral-900 uppercase text-xs font-bold tracking-widest">Chi Tiết</button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

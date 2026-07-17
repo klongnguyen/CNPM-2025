@@ -1,0 +1,48 @@
+@model IEnumerable<FashionStore.Models.Entities.Product>
+@{ 
+    ViewData["Title"] = "Quản Lý Sản Phẩm";
+    Layout = "_AdminLayout";
+}
+
+<div class="flex justify-between items-center mb-8">
+    <div class="relative w-64">
+        <input type="text" placeholder="Tìm sản phẩm..." class="w-full border border-neutral-300 py-2 px-4 text-sm focus:outline-none focus:border-neutral-900" />
+    </div>
+    <a href="/Admin/CreateProduct" class="bg-neutral-900 text-white text-xs font-bold uppercase tracking-widest px-6 py-3 hover:bg-neutral-800 transition-colors">
+        + Thêm Sản Phẩm Mới
+    </a>
+</div>
+
+<div class="bg-white border border-neutral-200">
+    <table class="w-full text-left text-sm">
+        <thead class="bg-neutral-50 text-xs uppercase tracking-widest text-neutral-500">
+            <tr>
+                <th class="px-6 py-4 font-bold">Hình Ảnh</th>
+                <th class="px-6 py-4 font-bold">Tên Sản Phẩm</th>
+                <th class="px-6 py-4 font-bold">Giá</th>
+                <th class="px-6 py-4 font-bold">Tồn Kho</th>
+                <th class="px-6 py-4 font-bold text-right">Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-neutral-100">
+            @if(Model != null)
+            {
+                foreach(var item in Model)
+                {
+                    <tr>
+                        <td class="px-6 py-4">
+                            <div class="w-12 h-16 bg-neutral-100"><img src="@item.ImageUrl" class="w-full h-full object-cover grayscale" /></div>
+                        </td>
+                        <td class="px-6 py-4 font-bold uppercase tracking-wide">@item.Name</td>
+                        <td class="px-6 py-4">$@item.CatalogPrice.ToString("0.00")</td>
+                        <td class="px-6 py-4">10</td>
+                        <td class="px-6 py-4 text-right">
+                            <button class="text-neutral-500 hover:text-neutral-900 uppercase text-xs font-bold tracking-widest mr-4">Sửa</button>
+                            <button class="text-neutral-500 hover:text-red-600 uppercase text-xs font-bold tracking-widest">Xóa</button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

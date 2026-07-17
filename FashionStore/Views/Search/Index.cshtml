@@ -1,0 +1,73 @@
+@model IEnumerable<FashionStore.Models.Entities.Product>
+@{ 
+    ViewData["Title"] = "Kết Quả Tìm Kiếm";
+    var query = ViewData["Query"] as string;
+}
+
+<!-- Header Section with large background -->
+<section class="bg-[#eef3e5] pt-32 pb-24 px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-5xl md:text-7xl font-black tracking-tighter uppercase mb-12">KẾT QUẢ TÌM KIẾM</h1>
+        
+        <form action="/Search" method="get" class="relative max-w-4xl">
+            <div class="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none">
+                <svg class="w-6 h-6 text-neutral-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+            <input type="text" name="query" value="@query" class="w-full border-2 border-neutral-900 py-6 pl-16 pr-16 text-2xl font-medium bg-transparent focus:outline-none focus:bg-white transition-colors" autocomplete="off" />
+            <a href="/Search" class="absolute inset-y-0 right-0 pr-6 flex items-center text-neutral-900 hover:text-neutral-500">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </a>
+        </form>
+    </div>
+</section>
+
+<section class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+    @if (!string.IsNullOrEmpty(query))
+    {
+        <div class="flex justify-between items-center mb-12 text-sm font-semibold text-neutral-500">
+            <span>@(Model?.Count() ?? 0) items</span>
+            <div class="flex items-center gap-4">
+                <select class="bg-transparent focus:outline-none cursor-pointer uppercase tracking-wide">
+                    <option>Sắp Xếp</option>
+                    <option>Mới Nhất</option>
+                    <option>Giá: Thấp - Cao</option>
+                    <option>Giá: Cao - Thấp</option>
+                </select>
+                <div class="flex gap-2">
+                    <button class="p-1 text-neutral-900"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg></button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Search Results Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+            @if(Model != null && Model.Any())
+            {
+                foreach(var item in Model)
+                {
+                    <a href="/Products/Details/@item.Id" class="group block">
+                        <div class="aspect-[3/4] bg-neutral-100 overflow-hidden mb-4 relative">
+                            <img src="@item.ImageUrl" alt="@item.Name" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 grayscale" />
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold uppercase tracking-wide text-neutral-900 group-hover:text-neutral-600 transition-colors">@item.Name</h3>
+                            <p class="text-sm text-neutral-500 mt-1">$@item.CatalogPrice.ToString("0.00")</p>
+                        </div>
+                    </a>
+                }
+            }
+            else
+            {
+                <div class="col-span-4 text-center py-20">
+                    <p class="text-neutral-500 text-lg">Không có kết quả nào phù hợp với từ khóa của bạn.</p>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-20">
+            <p class="text-xl text-neutral-500">Vui lòng nhập từ khóa để tìm kiếm.</p>
+        </div>
+    }
+</section>
