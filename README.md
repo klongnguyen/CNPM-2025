@@ -1,3 +1,3 @@
-run project
+run project  
 cd FashionStore -> dotnet run
 
